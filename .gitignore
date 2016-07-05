@@ -11,5 +11,5 @@ gen
 node_modules
 typings
 
-app/**.map
-app/**.js
+#app/**.map
+#app/**.js
