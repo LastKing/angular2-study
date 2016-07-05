@@ -2,6 +2,7 @@
  * Created by Rain on 2016/7/5.
  */
 import {provideRouter, RouterConfig} from '@angular/router'
+
 import {HeroesComponent} from './heroes.component'
 import {DashboardComponent} from './dashboard.component'
 import {HeroDetailComponent} from "./hero-detail.component";
