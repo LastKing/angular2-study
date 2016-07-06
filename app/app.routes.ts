@@ -14,12 +14,12 @@ const routes:RouterConfig = [
         pathMatch: 'full'
     },
     {
-        path: 'heroes',
-        component: HeroesComponent
-    },
-    {
         path: 'dashboard',
         component: DashboardComponent
+    },
+    {
+        path: 'heroes',
+        component: HeroesComponent
     },
     {
         path: 'detail/:id',
