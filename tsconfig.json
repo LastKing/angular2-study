@@ -1,3 +1,4 @@
+// typescript 翻译器配置
 {
   "compilerOptions": {
     "target": "es5",

@@ -13,3 +13,6 @@ typings
 
 app/**.map
 app/**.js
+
+src/*.js
+src/*.map
