@@ -1,63 +1,44 @@
 /**
  * Created by Rain on 2016/7/4.
  */
-import {Component, EventEmitter, Input, OnInit, OnDestroy, Output} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Params}   from '@angular/router';
+import {Location}                 from '@angular/common';
 
-import {Hero} from './hero';
 import {HeroService} from './hero.service';
 
+import {Hero} from'./hero';
+
 @Component({
+    moduleId: module.id,
     selector: 'my-hero-detail',
-    templateUrl: 'app/hero-detail.component.html',
-    styleUrls: ['app/hero-detail.component.css']
+    styleUrls: ['hero-detail.component.css'],
+    templateUrl: 'hero-detail.component.html'
 })
 
-export class HeroDetailComponent implements OnInit,OnDestroy {
-    @Input() hero:Hero;
-    @Output() close = new EventEmitter();
-    error:any;
-    sub:any;
-    navigated = false;
+export class HeroDetailComponent implements OnInit {
+    @Input() hero: Hero;
 
-    constructor(private heroService:HeroService, private route:ActivatedRoute) {
+    constructor(private heroService: HeroService,
+                private route: ActivatedRoute,
+                private location: Location) {
     }
 
-    ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            if (params['id'] !== undefined) {
-                let id = +params['id'];
-                this.navigated = true;
-                this.heroService.getHero(id)
-                    .then(hero=>this.hero = hero);
-            } else {
-                this.navigated = false;
-                this.hero = new Hero();
-            }
-            // let id = +params['id'];
-            // this.heroService.getHero(id)
-            //     .then(hero => this.hero = hero);
+    ngOnInit(): void {
+        this.route.params.forEach((params: Params) => {
+            let id = +params['id'];
+            this.heroService.getHero(id)
+                .then(hero => this.hero = hero);
         });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    save(): void {
+        this.heroService.update(this.hero)
+            .then(() => this.goBack());
     }
 
-    save() {
-        this.heroService
-            .save(this.hero)
-            .then(hero => {
-                this.hero = hero; // saved hero, w/ id if new
-                this.goBack(hero);
-            })
-            .catch(error => this.error = error); // TODO: Display error message
-    }
-
-    goBack(savedHero:Hero = null) {
-        this.close.emit(savedHero);
-        if (this.navigated)  window.history.back();
+    goBack(): void {
+        this.location.back();
     }
 
 }
-
