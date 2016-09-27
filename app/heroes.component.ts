@@ -5,66 +5,67 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {Hero} from './hero';
-import {HeroService} from './hero.service'
-import {HeroDetailComponent} from "./hero-detail.component";
+
+import {HeroService} from './hero.service';
 
 @Component({
     selector: 'my-heroes',
     templateUrl: 'app/heroes.component.html',
     styleUrls: ['app/heroes.component.css'],
-    directives: [HeroDetailComponent]
+    providers: [HeroService]
 })
 
 export class HeroesComponent implements OnInit {
-    heroes:Hero[];
-    selectedHero:Hero;
-    addingHero = false;
-    error:any;
-
-    constructor(private router:Router, private  heroService:HeroService) {
+    constructor(private heroService: HeroService, private router: Router) {
     }
 
-    addHero() {
-        this.addingHero = true;
-        this.selectedHero = null;
-    }
+    heroes: Hero[];
+    selectedHero: Hero;
 
-    close(savedHero:Hero) {
-        this.addingHero = false;
-        if (savedHero) {
-            this.getHeroes();
+    title = 'Tour of Heroes';
+
+    hero: Hero = {
+        id: 1,
+        name: 'windstorm2'
+    };
+
+    add(name: string): void {
+        name = name.trim();
+        if (!name) {
+            return;
         }
+        this.heroService.create(name)
+            .then(hero => {
+                this.heroes.push(hero);
+                this.selectedHero = null;
+            });
     }
 
-    deleteHero(hero:Hero, event:any) {
-        event.stopPropagation();
+    delete(hero: Hero): void {
         this.heroService
-            .delete(hero)
-            .then(res => {
+            .delete(hero.id)
+            .then(() => {
                 this.heroes = this.heroes.filter(h => h !== hero);
                 if (this.selectedHero === hero) {
                     this.selectedHero = null;
                 }
-            })
-            .catch(error => this.error = error);
+            });
     }
 
-    getHeroes() {
-        this.heroService
-            .getHeroes()
-            .then(heroes => this.heroes = heroes)
-            .catch(error=>this.error = error);
+    getHeroes(): void {
+        this.heroService.getHeroesByHttp().then(heroes => this.heroes = heroes);
     }
 
-    ngOnInit() {
-        this.getHeroes();
-    }
-
-    onSelect(hero:Hero) {
+    onSelect(hero: Hero): void {
         this.selectedHero = hero;
     }
 
-    gotoDetail() {
+    ngOnInit(): void {
+        this.getHeroes();
+    }
+
+    gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedHero.id]);
     }
+
 }
