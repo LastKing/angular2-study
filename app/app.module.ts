@@ -12,35 +12,44 @@ import {InMemoryDataService}  from './in-memory-data.service';
 
 import './rxjs-extensions';
 
+import {HeroService} from './hero.service';
+
+import {routing}from './app.routing';
+
+import {CollapsibleModule} from "./simpleng/collapsible/collapsible.module";
+import {HighlightModule} from "./simpleng/highlight/highlight.module";
+import {UnlessModule} from "./simpleng/unless/unless.module";
+
 import {AppComponent}  from './app.component';
 import {DashboardComponent} from './dashboard.component';
 import {HeroDetailComponent} from './hero-detail.component';
 import {HeroesComponent} from './heroes.component';
 import {HeroSearchComponent} from "./hero-search.component";
-
-import {HeroService} from './hero.service';
-
-import {routing}from './app.routing'
+import {TestComponent} from "./test/test.coponent";
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        InMemoryWebApiModule.forRoot(InMemoryDataService),
-        routing
-    ],
-    declarations: [
-        AppComponent,
-        HeroDetailComponent,
-        HeroesComponent,
-        DashboardComponent,
-        HeroSearchComponent
-    ],
-    providers: [
-        HeroService
-    ],
-    bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    routing,
+    CollapsibleModule,
+    HighlightModule,
+    UnlessModule
+  ],
+  declarations: [
+    AppComponent,
+    HeroDetailComponent,
+    HeroesComponent,
+    DashboardComponent,
+    HeroSearchComponent,
+    TestComponent,
+  ],
+  providers: [
+    HeroService
+  ],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule {

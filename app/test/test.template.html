@@ -1,0 +1,25 @@
+<div>
+    sss
+    <collapsible></collapsible>
+
+    <div>
+        <h5>My First Attribute Directive</h5>
+        <input type="radio" name="colors" (click)="color='lightgreen'">Green
+        <input type="radio" name="colors" (click)="color='yellow'">Yellow
+        <input type="radio" name="colors" (click)="color='cyan'">Cyan
+
+        <p [myHighlight]="color">Highlight me!</p>
+        <p [myHighlight]="color" [defaultColor]="'violet'">Highlight me!</p>
+    </div>
+
+    <p *myUnless="condition">
+        condition is false and myUnless is true.
+    </p>
+
+    <p *myUnless="!condition">
+        condition is true and myUnless is false.
+    </p>
+
+</div>
+
+
