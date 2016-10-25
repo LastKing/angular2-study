@@ -12,67 +12,67 @@ import {HEROES} from './mock-heroes';
 
 @Injectable()
 export class HeroService {
-    private heroesUrl = 'app/heroes';  // URL to web api
-    private headers = new Headers({'Content-Type': 'application/json'});
+  private heroesUrl = 'app/heroes';  // URL to web api
+  private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private http: Http) {
-    }
+  constructor(private http: Http) {
+  }
 
-    getHeroesByHttp(): Promise<Hero[]> {
-        return this.http.get(this.heroesUrl)
-            .toPromise()
-            .then(response => response.json().data as Hero[])
-            .catch(this.handleError);
-    }
+  getHeroesByHttp(): Promise<Hero[]> {
+    return this.http.get(this.heroesUrl)
+      .toPromise()
+      .then(response => response.json().data as Hero[])
+      .catch(this.handleError);
+  }
 
-    create(name: string): Promise<Hero> {
-        return this.http
-            .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
-            .toPromise()
-            .then(res => res.json().data)
-            .catch(this.handleError);
-    }
+  create(name: string): Promise<Hero> {
+    return this.http
+      .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
 
-    delete(id: number): Promise<void> {
-        let url = `${this.heroesUrl}/${id}`;
-        return this.http.delete(url, {headers: this.headers})
-            .toPromise()
-            .then(() => null)
-            .catch(this.handleError);
-    }
+  delete(id: number): Promise<void> {
+    let url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
 
-    update(hero: Hero): Promise<Hero> {
-        const url = `${this.heroesUrl}/${hero.id}`;
-        return this.http
-            .put(url, JSON.stringify(hero), {headers: this.headers})
-            .toPromise()
-            .then(() => hero)
-            .catch(this.handleError);
-    }
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
+  }
 
-    search(term: string): Observable<Hero[]> {
-        return this.http
-            .get(`app/heroes/?name=${term}`)
-            .map((r: Response) => r.json().data as Hero[]);
-    }
+  search(term: string): Observable<Hero[]> {
+    return this.http
+      .get(`app/heroes/?name=${term}`)
+      .map((r: Response) => r.json().data as Hero[]);
+  }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
 
-    getHero(id: number): Promise<Hero> {
-        return this.getHeroes()
-            .then(heroes => heroes.find(hero => hero.id === id));
-    }
+  getHero(id: number): Promise<Hero> {
+    return this.getHeroes()
+      .then(heroes => heroes.find(hero => hero.id === id));
+  }
 
-    getHeroes(): Promise<Hero[]> {
-        return Promise.resolve(HEROES);
-    }
+  getHeroes(): Promise<Hero[]> {
+    return Promise.resolve(HEROES);
+  }
 
-    getHeroesSlowly(): Promise<Hero[]> {
-        return new Promise<Hero[]>(resolve =>
-            setTimeout(resolve, 1000)) // delay 2 seconds
-            .then(() => this.getHeroes());
-    }
+  getHeroesSlowly(): Promise<Hero[]> {
+    return new Promise<Hero[]>(resolve =>
+      setTimeout(resolve, 1000)) // delay 2 seconds
+      .then(() => this.getHeroes());
+  }
 }
