@@ -20,15 +20,15 @@ import {HeroSearchComponent} from "./hero-search.component";
 
 import {HeroService} from './hero.service';
 
-import {routing}from './app.routing'
+import {AppRoutingModule}from './app.routing'
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService),
-    routing
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,

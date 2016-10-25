@@ -1,14 +1,14 @@
 /**
  * Created by Rain on 2016/7/5.
  */
-import {ModuleWithProviders}  from '@angular/core';
+import {NgModule}  from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {HeroesComponent}  from './heroes.component';
 import {DashboardComponent}  from './dashboard.component';
 import {HeroDetailComponent} from "./hero-detail.component";
 
-const appRoutes: Routes = [
+const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
   {path: 'heroes', component: HeroesComponent},
@@ -16,5 +16,10 @@ const appRoutes: Routes = [
   {path: 'detail/:id', component: HeroDetailComponent}
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+}
 
