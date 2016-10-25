@@ -16,7 +16,6 @@ import {Component} from '@angular/core'
      <router-outlet></router-outlet>
    `
 })
-
 export class AppComponent {
   title = 'Tour of Heroes';
 }

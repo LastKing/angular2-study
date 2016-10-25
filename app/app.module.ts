@@ -12,19 +12,15 @@ import {InMemoryDataService}  from './in-memory-data.service';
 
 import './rxjs-extensions';
 
-import {HeroService} from './hero.service';
-
-import {routing}from './app.routing';
-
-import {CollapsibleModule} from "./simpleng/collapsible/collapsible.module";
-import {HighlightModule} from "./simpleng/highlight/highlight.module";
-import {UnlessModule} from "./simpleng/unless/unless.module";
-
 import {AppComponent}  from './app.component';
 import {DashboardComponent} from './dashboard.component';
 import {HeroDetailComponent} from './hero-detail.component';
 import {HeroesComponent} from './heroes.component';
 import {HeroSearchComponent} from "./hero-search.component";
+
+import {HeroService} from './hero.service';
+
+import {AppRoutingModule}from './app.routing'
 import {TestComponent} from "./test/test.coponent";
 
 @NgModule({
@@ -33,7 +29,7 @@ import {TestComponent} from "./test/test.coponent";
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    routing,
+    AppRoutingModule,
     CollapsibleModule,
     HighlightModule,
     UnlessModule
@@ -43,8 +39,7 @@ import {TestComponent} from "./test/test.coponent";
     HeroDetailComponent,
     HeroesComponent,
     DashboardComponent,
-    HeroSearchComponent,
-    TestComponent,
+    HeroSearchComponent
   ],
   providers: [
     HeroService
