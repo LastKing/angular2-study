@@ -22,6 +22,9 @@ import {HeroService} from './hero.service';
 
 import {AppRoutingModule}from './app.routing'
 import {TestComponent} from "./test/test.coponent";
+import {CollapsibleModule} from "./simpleng/collapsible/collapsible.module";
+import {HighlightModule} from "./simpleng/highlight/highlight.module";
+import {UnlessModule} from "./simpleng/unless/unless.module";
 
 @NgModule({
   imports: [
@@ -39,7 +42,8 @@ import {TestComponent} from "./test/test.coponent";
     HeroDetailComponent,
     HeroesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    TestComponent
   ],
   providers: [
     HeroService
